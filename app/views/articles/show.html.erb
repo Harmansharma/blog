@@ -1,0 +1,46 @@
+<p>
+	<strong>Title:
+	</strong>
+	<%=@article.title %>
+  <%= image_tag(@article.image_url, :widh=>600) if @article.image.present? %>
+</p>
+<p>
+<strong>Text:</strong>
+<%=@article.text %>
+</p>
+
+
+<h2>suggests</h2>
+<% @article.suggests.each do |suggest| %>
+  <p>
+    <strong>suggester:</strong>
+    <%= suggest.suggester %>
+  </p>
+ 
+  <p>
+    <strong>suggest:</strong>
+    <%= suggest.body %>
+  </p>
+<% end %>
+
+
+<h2>Add a suggest:</h2>
+<%= form_with(model: [ @article, @article.suggests.build ], local: true) do |form| %>
+  <p>
+    <%= form.label :suggester %><br>
+    <%= form.text_field :suggester %>
+  </p>
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+  <% end %>
+
+<%=link_to 'edit',
+edit_article_path(@article) %>
+
+<%= link_to 'back',articles_path%>
+
